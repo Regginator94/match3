@@ -23,12 +23,12 @@ public class Grid : MonoBehaviour {
     public PiecePrefab[] piecePrefabs;
     public GameObject backgroundPrefab;
 
-    private GamePiece[,] pieces;
+    //private GamePiece[,] pieces;
     private Dictionary<PieceType, GameObject> piecePrefabDict;
 
 	void Start () {
         piecePrefabDict = new Dictionary<PieceType, GameObject>();
-        pieces = new GamePiece[xDim, yDim];
+        //pieces = new GamePiece[xDim, yDim];
         for (int i = 0; i < piecePrefabs.Length; i++)
         {
             if(!piecePrefabDict.ContainsKey(piecePrefabs [i].type))
@@ -41,34 +41,34 @@ public class Grid : MonoBehaviour {
         {
             for(int y = 0; y < yDim; y++)
             {
-                GameObject background = (GameObject)Instantiate(backgroundPrefab, GetWorldPosition(x,y),Quaternion.identity);
+                GameObject background = (GameObject)Instantiate(backgroundPrefab, new Vector3(x,y,0),Quaternion.identity);
                 background.transform.parent = transform;
             }
         }
         
-        for(int x = 0; x < xDim; x++)
-        {
-            for(int y = 0; y < yDim; y++)
-            {
-                GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], GetWorldPosition(x, y), Quaternion.identity);
-                newPiece.name = "piece";
-                newPiece.transform.parent = transform;
+        //for(int x = 0; x < xDim; x++)
+        //{
+        //    for(int y = 0; y < yDim; y++)
+        //    {
+        //        GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], GetWorldPosition(x, y), Quaternion.identity);
+        //        newPiece.name = "piece";
+        //        newPiece.transform.parent = transform;
 
-                pieces[x, y] = newPiece.GetComponent<GamePiece>();
-                pieces[x, y].Init(x, y, this, PieceType.NORMAL);
+        //        pieces[x, y] = newPiece.GetComponent<GamePiece>();
+        //        pieces[x, y].Init(x, y, this, PieceType.NORMAL);
 
-                if (pieces[x, y].IsMoveable())
-                {
-                    pieces[x, y].MoveableComponent.Move(x, y);
-                }
+        //        if (pieces[x, y].IsMoveable())
+        //        {
+        //            pieces[x, y].MoveableComponent.Move(x, y);
+        //        }
 
-                if(pieces[x,y].IsColored())
-                {
-                    pieces[x, y].ColorComponent.SetColor((ColorPiece.ColorType)Random.Range(0, pieces[x, y].ColorComponent.NumColors));
-                }
+        //        if(pieces[x,y].IsColored())
+        //        {
+        //            pieces[x, y].ColorComponent.SetColor((ColorPiece.ColorType)Random.Range(0, pieces[x, y].ColorComponent.NumColors));
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
 	}
 	
